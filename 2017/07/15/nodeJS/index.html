@@ -17,7 +17,7 @@
 <meta property="og:description" content="Node.js采用 事件驱动 和 异步I/O 的方式，实现了一个单线程、高并发的运行时环境，而单线程就意味着同一时间只能做一件事，那么Node.js如何利用单线程来实现高并发和异步I/O？本文将围绕这个问题来探讨Node.js的单线程模型： 1、高并发一般来说，高并发的解决方案就是多线程模型，服务器为每个客户端请求分配一个线程，使用同步I/O，系统通过线程切换来弥补同步I/O调用的时间开销，比如A">
 <meta property="og:image" content="http://yoursite.com/images/node/0.jpg">
 <meta property="og:image" content="http://yoursite.com/images/node/1.jpg">
-<meta property="og:updated_time" content="2017-07-15T09:02:38.357Z">
+<meta property="og:updated_time" content="2017-07-17T02:50:53.881Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 Node.js 单线程模型">
 <meta name="twitter:description" content="Node.js采用 事件驱动 和 异步I/O 的方式，实现了一个单线程、高并发的运行时环境，而单线程就意味着同一时间只能做一件事，那么Node.js如何利用单线程来实现高并发和异步I/O？本文将围绕这个问题来探讨Node.js的单线程模型： 1、高并发一般来说，高并发的解决方案就是多线程模型，服务器为每个客户端请求分配一个线程，使用同步I/O，系统通过线程切换来弥补同步I/O调用的时间开销，比如A">
@@ -344,14 +344,24 @@
 </aside>
 
 
-
-  
-  
-  
-
-  
-
-  
+<section id="comments">
+  <!--高速版，加载速度快，使用前需测试页面的兼容性-->
+  <div id="SOHUCS" sid="浅谈 Node.js 单线程模型"></div>
+  <script>
+    (function(){
+      var appid = 'cyt7iHc35',
+        conf = '7f5d531a7698cd322d868c1a12d89307';
+      var doc = document,
+        s = doc.createElement('script'),
+        h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+      s.type = 'text/javascript';
+      s.charset = 'utf-8';
+      s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+      h.insertBefore(s,h.firstChild);
+      window.SCS_NO_IFRAME = true;
+    })()
+  </script>
+</section>
 
 
           </div>
