@@ -227,6 +227,8 @@
 
       
 
+      
+
       <div class="clearfix"></div>
 
     </div>
@@ -380,6 +382,8 @@
 
       
 
+      
+
       <div class="clearfix"></div>
 
     </div>
@@ -411,37 +415,6 @@
 
           </div>
         </div>
-
-        <div id="container"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  const myTheme = {
-    render(state, instance) {
-      const container = document.createElement('div');
-      container.lang = "en-US";
-      container.className = 'gitment-container gitment-root-container';
-      container.appendChild(instance.renderHeader(state, instance));
-      container.appendChild(instance.renderEditor(state, instance));
-      container.appendChild(instance.renderComments(state, instance));
-      container.appendChild(instance.renderFooter(state, instance));
-      return container;
-    }
-  };
-
-  var gitment = new Gitment({
-    owner: 'menggege', // 可以是你的GitHub用户名，也可以是github id
-    repo: 'menggege.github.io',
-    oauth: {
-      client_id: 'fe75ac771594abc44791',
-      client_secret: '79b530f35ee56666de47fdccd41e7ea6777aae14',
-    },
-    theme: myTheme
-  })
-  gitment.render('container')
-</script>
-
-
       </div>
       <footer id="footer">
   <div class="outer">

@@ -217,7 +217,7 @@
             <span class="tooltip-content">
               <span class="tooltip-text">
                 <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢支持，一起努力<i class="icon icon-quo-right"></i></p>
                   <div class="reward-box">
                     
                     <div class="reward-box-item">
@@ -311,6 +311,45 @@
 <div class="mask js-mask"></div>
       
 
+      
+        <div id="comment" style="margin-top:50px;"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  const myTheme = {
+    render(state, instance) {
+      const container = document.createElement('div');
+      container.lang = "zh-CN";
+      container.className = 'gitment-container gitment-root-container';
+      container.appendChild(instance.renderHeader(state, instance));
+      container.appendChild(instance.renderEditor(state, instance));
+      container.appendChild(instance.renderComments(state, instance));
+      container.appendChild(instance.renderFooter(state, instance));
+      return container;
+    },
+    renderFooter() {
+      var container = document.createElement('div');
+      container.lang = "en-US";
+      container.className = 'gitment-container gitment-footer-container';
+      container.innerHTML = '\n    Powered by\n    <a class="gitment-footer-project-link" href="https://github.com/imsun/gitment" target="_blank">\n      Gitment\n    </a>\n  ';
+      return container;
+    }
+  };
+
+  var gitment = new Gitment({
+    owner: 'menggege', // 可以是你的GitHub用户名，也可以是github id
+    repo: 'menggege.github.io',
+    oauth: {
+      client_id: 'fe75ac771594abc44791',
+      client_secret: '79b530f35ee56666de47fdccd41e7ea6777aae14',
+    },
+    theme: myTheme
+  })
+  gitment.render('comment')
+</script>
+
+      
+
       <div class="clearfix"></div>
 
     </div>
@@ -358,37 +397,6 @@
 
           </div>
         </div>
-
-        <div id="container"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  const myTheme = {
-    render(state, instance) {
-      const container = document.createElement('div');
-      container.lang = "en-US";
-      container.className = 'gitment-container gitment-root-container';
-      container.appendChild(instance.renderHeader(state, instance));
-      container.appendChild(instance.renderEditor(state, instance));
-      container.appendChild(instance.renderComments(state, instance));
-      container.appendChild(instance.renderFooter(state, instance));
-      return container;
-    }
-  };
-
-  var gitment = new Gitment({
-    owner: 'menggege', // 可以是你的GitHub用户名，也可以是github id
-    repo: 'menggege.github.io',
-    oauth: {
-      client_id: 'fe75ac771594abc44791',
-      client_secret: '79b530f35ee56666de47fdccd41e7ea6777aae14',
-    },
-    theme: myTheme
-  })
-  gitment.render('container')
-</script>
-
-
       </div>
       <footer id="footer">
   <div class="outer">
