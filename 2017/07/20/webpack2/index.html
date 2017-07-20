@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2017 | 个人博客</title>
+  <title>webpack2 终极优化 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/2017/index.html">
+  <meta name="description" content="webpack是当下最流行的js打包工具，这得益于网页应用日益复杂和js模块化的流行。webpack2增加了一些新特性也正式发布了一段时间，是时候告诉大家如何用webpack2优化你的构建让它构建出更小的文件尺寸和更好的开发体验。 优化输出打包结果更小可以让网页打开速度更快以及简约宽带。可以通过这以下几点做到 压缩csscss-loader 在webpack2里默认是没有开启压缩的，最后生成的cs">
+<meta name="keywords" content="webpack2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack2 终极优化">
+<meta property="og:url" content="http://yoursite.com/2017/07/20/webpack2/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="webpack是当下最流行的js打包工具，这得益于网页应用日益复杂和js模块化的流行。webpack2增加了一些新特性也正式发布了一段时间，是时候告诉大家如何用webpack2优化你的构建让它构建出更小的文件尺寸和更好的开发体验。 优化输出打包结果更小可以让网页打开速度更快以及简约宽带。可以通过这以下几点做到 压缩csscss-loader 在webpack2里默认是没有开启压缩的，最后生成的cs">
+<meta property="og:updated_time" content="2017-07-20T01:47:06.538Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
+<meta name="twitter:title" content="webpack2 终极优化">
+<meta name="twitter:description" content="webpack是当下最流行的js打包工具，这得益于网页应用日益复杂和js模块化的流行。webpack2增加了一些新特性也正式发布了一段时间，是时候告诉大家如何用webpack2优化你的构建让它构建出更小的文件尺寸和更好的开发体验。 优化输出打包结果更小可以让网页打开速度更快以及简约宽带。可以通过这以下几点做到 压缩csscss-loader 在webpack2里默认是没有开启压缩的，最后生成的cs">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -139,36 +144,151 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-webpack2" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/20/webpack2/" class="archive-article-date">
-  	<time datetime="2017-07-20T01:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/20/webpack2/">webpack2 终极优化</a>
+    <h1 class="article-title" itemprop="name">
+      webpack2 终极优化
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/07/20/webpack2/" class="archive-article-date">
+  	<time datetime="2017-07-20T01:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>webpack是当下最流行的js打包工具，这得益于网页应用日益复杂和js模块化的流行。webpack2增加了一些新特性也正式发布了一段时间，是时候告诉大家如何用webpack2优化你的构建让它构建出更小的文件尺寸和更好的开发体验。</p>
+<h1 id="优化输出"><a href="#优化输出" class="headerlink" title="优化输出"></a>优化输出</h1><p>打包结果更小可以让网页打开速度更快以及简约宽带。可以通过这以下几点做到</p>
+<h2 id="压缩css"><a href="#压缩css" class="headerlink" title="压缩css"></a>压缩css</h2><p>css-loader 在webpack2里默认是没有开启压缩的，最后生成的css文件里有很多空格和tab，通过配置<br>css-loader?minimize参数可以开启压缩输出最小的css。css的压缩实际是是通过cssnano实现的。</p>
+<h2 id="tree-shaking"><a href="#tree-shaking" class="headerlink" title="tree-shaking"></a>tree-shaking</h2><p>tree-shaking 是指借助es6 import export 语法静态性的特点来删掉export但是没有import过的东西。要让tree-shaking工作需要注意以下几点：</p>
+<p>配置babel让它在编译转化es6代码时不把import export转换为cmd的module.export，配置如下：</p>
+<blockquote>
+<p>“presets”: [<br>    [<br>      “es2015”,<br>      {<br>        “modules”: false<br>      }<br>    ]<br>]</p>
+</blockquote>
+<p>大多数分布到npm的库里的代码都是es5的，但是也有部分库（redux,react-router等等）开始支持tree-shaking。这些库发布到npm里的代码即包含es5的又包含全采用了es6 import export 语法的代码。</p>
+<p>拿redux库来说，npm下载到的目录结构如下：</p>
+<blockquote>
+<p>├── es<br>│   └── utils<br>├── lib<br>│   └── utils</p>
+</blockquote>
+<p>其中lib目录里是编译出的es5代码，es目录里是编译出的采用import export 语法的es5代码，在redux的package.json文件里有这两个配置：</p>
+<blockquote>
+<p>main”: “lib/index.js”,<br>“jsnext:main”: “es/index.js”,</p>
+</blockquote>
+<p>这是指这个库的入口文件的位置，所以要让webpack去读取es目录下的代码需要使用jsnext:main字段配置的入口，要做到这点webpack需要这样配置：</p>
+<blockquote>
+<p>module.exports = {<br>resolve: {<br>            mainFields: [‘jsnext:main’,’main’],<br>        }<br>};</p>
+</blockquote>
+<p>这会让webpack先使用jsnext:main字段，在没有时使用main字段。这样就可以优化支持tree-shaking的库。</p>
+<h2 id="优化-UglifyJsPlugin"><a href="#优化-UglifyJsPlugin" class="headerlink" title="优化 UglifyJsPlugin"></a>优化 UglifyJsPlugin</h2><p>webpack –optimize-minimize 选项会开启 UglifyJsPlugin来压缩输出的js，但是默认的UglifyJsPlugin配置并没有把代码压缩到最小输出的js里还是有注释和空格，需要覆盖默认的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">new UglifyJsPlugin(&#123;</div><div class="line">    // 最紧凑的输出</div><div class="line">    beautify: false,</div><div class="line">    // 删除所有的注释</div><div class="line">    comments: false,</div><div class="line">    compress: &#123;</div><div class="line">      // 在UglifyJs删除没有用到的代码时不输出警告</div><div class="line">      warnings: false,</div><div class="line">      // 删除所有的 `console` 语句</div><div class="line">      // 还可以兼容ie浏览器</div><div class="line">      drop_console: true,</div><div class="line">      // 内嵌定义了但是只用到一次的变量</div><div class="line">      collapse_vars: true,</div><div class="line">      // 提取出出现多次但是没有定义成变量去引用的静态值</div><div class="line">      reduce_vars: true,</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="定义环境变量-NODE-ENV-production"><a href="#定义环境变量-NODE-ENV-production" class="headerlink" title="定义环境变量 NODE_ENV=production"></a>定义环境变量 NODE_ENV=production</h2><p>很多库里（比如react）有部分代码是这样的：</p>
+<blockquote>
+<p>if(process.env.NODE_ENV !== ‘production’){<br>// 不是生产环境才需要用到的代码，比如控制台里看到的警告<br>}</p>
+</blockquote>
+<p>在环境变量 NODE_ENV 等于 production 的时候UglifyJs会认为if语句里的是死代码在压缩代码时删掉。</p>
+<h2 id="使用-CommonsChunkPlugin-抽取公共代码"><a href="#使用-CommonsChunkPlugin-抽取公共代码" class="headerlink" title="使用 CommonsChunkPlugin 抽取公共代码"></a>使用 CommonsChunkPlugin 抽取公共代码</h2><p>CommonsChunkPlugin可以提取出多个代码块都依赖的模块形成一个单独的模块。要发挥CommonsChunkPlugin的作用还需要浏览器缓存机制的配合。在应用有多个页面的场景下提取出所有页面公共的代码减少单个页面的代码，在不同页面之间切换时所有页面公共的代码之前被加载过而不必重新加载。这个方法可以非常有效的提升应用性能。</p>
+<h2 id="在生产环境按照文件内容md5打hash"><a href="#在生产环境按照文件内容md5打hash" class="headerlink" title="在生产环境按照文件内容md5打hash"></a>在生产环境按照文件内容md5打hash</h2><p>webpack编译在生产环境出来的js、css、图片、字体这些文件应该放到CDN上，再根据文件内容的md5命名文件，利用缓存机制用户只需要加载一次，第二次加载时就直接访问缓存。如果你之后有修改就会为对应的文件生产新的md5值。做到以上你需要这样配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  output: &#123;</div><div class="line">    publicPath: CND_URL,</div><div class="line">    filename: &apos;[name]_[chunkhash].js&apos;,</div><div class="line">  &#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>知道以上原理后我们还可以进一步优化：利用CommonsChunkPlugin提取出使用页面都依赖的基础运行环境。比如对于最常见的react体系你可以抽出基础库react react-dom redux react-redux到一个单独的文件而不是和其它文件放在一起打包为一个文件，这样做的好处是只要你不升级他们的版本这个文件永远不会被刷新。如果你把这些基础库和业务代码打包在一个文件里每次改动业务代码都会导致浏览器重复下载这些包含基础库的代码。以上的配置为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// vender.js 文件抽离基础库到单独的一个文件里防止跟随业务代码被刷新</div><div class="line">// 所有页面都依赖的第三方库</div><div class="line">// react基础</div><div class="line">import &apos;react&apos;;</div><div class="line">import &apos;react-dom&apos;;</div><div class="line">import &apos;react-redux&apos;;</div><div class="line">// redux基础</div><div class="line">import &apos;redux&apos;;</div><div class="line">import &apos;redux-thunk&apos;;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>// webpack配置<br>{<br>  entry: {<br>    vendor: ‘./path/to/vendor.js’,<br>  },<br>}</p>
+</blockquote>
+<h2 id="DedupePlugin-和-OccurrenceOrderPlugin"><a href="#DedupePlugin-和-OccurrenceOrderPlugin" class="headerlink" title="DedupePlugin 和 OccurrenceOrderPlugin"></a>DedupePlugin 和 OccurrenceOrderPlugin</h2><p>在webpack1里经常会使用 DedupePlugin 插件来消除重复的模块以及使用 OccurrenceOrderPlugin 插件让被依赖次数更高的模块靠前分到更小的id 来达到输出更少的代码，在webpack2里这些已经这两个插件已经被移除了因为这些功能已经被内置了。</p>
+<p>除了压缩文本代码外还可以：</p>
+<p>用imagemin-webpack-plugin 压缩图片<br>用webpack-spritesmith 合并雪碧图<br>对于支持es6的js运行环境使用babili</p>
+<p>以上优化点只需要在构建用于生产环境代码的时候才使用，在开发环境时最好关闭因为它们很耗时。</p>
+<h1 id="优化开发体验"><a href="#优化开发体验" class="headerlink" title="优化开发体验"></a>优化开发体验</h1><p>优化开发体验主要从更快的构建和更方便的功能入手。</p>
+<h1 id="更快的构建"><a href="#更快的构建" class="headerlink" title="更快的构建"></a>更快的构建</h1><h2 id="缩小文件搜索范围"><a href="#缩小文件搜索范围" class="headerlink" title="缩小文件搜索范围"></a>缩小文件搜索范围</h2><p>webpack的resolve.modules配置模块库（通常是指node_modules）所在的位置，在js里出现import ‘redux’这样不是相对也不是绝对路径的写法时会去node_modules目录下找。但是默认的配置会采用向上递归搜索的方式去寻找node_modules，但通常项目目录里只有一个node_modules在项目根目录，为了减少搜索我们直接写明node_modules的全路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">    resolve: &#123;</div><div class="line">        modules: [path.resolve(__dirname, &apos;node_modules&apos;)]</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>除此之外webpack配置loader时也可以缩小文件搜索范围。</p>
+<p>loader的test正则表达式也应该尽可能的简单，比如在你的项目里只有.js文件时就不要把test写成/.jsx?$/<br>loader使用include命中只需要处理的文件，比如babel-loader的这两个配置:</p>
+<p>只对项目目录下src目录里的代码进行babel编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    test: /\.js$/,</div><div class="line">    loader: &apos;babel-loader&apos;,</div><div class="line">    include: path.resolve(__dirname, &apos;src&apos;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>项目目录下的所有js都会进行babel编译，包括庞大的node_modules下的js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    test: /\.js$/,</div><div class="line">    loader: &apos;babel-loader&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="开启-babel-loader-缓存"><a href="#开启-babel-loader-缓存" class="headerlink" title="开启 babel-loader 缓存"></a>开启 babel-loader 缓存</h2><p>babel编译过程很耗时，好在babel-loader提供缓存编译结果选项，在重启webpack时不需要创新编译而是复用缓存结果减少编译流程。babel-loader缓存机制默认是关闭的，打开的配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">    module: &#123;</div><div class="line">         loaders: [&#123;</div><div class="line">                test: /\.js$/,</div><div class="line">                loader: &apos;babel-loader?cacheDirectory&apos;,</div><div class="line">         &#125;]</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="使用-alias"><a href="#使用-alias" class="headerlink" title="使用 alias"></a>使用 alias</h2><p>resolve.alias 配置路径映射。</p>
+<p>发布到npm的库大多数都包含两个目录，一个是放着cmd模块化的lib目录，一个是把所有文件合成一个文件的dist目录，多数的入口文件是指向lib里面下的。<br>默认情况下webpack会去读lib目录下的入口文件再去递归加载其它依赖的文件这个过程很耗时，alias配置可以让webpack直接使用dist目录的整体文件减少文件递归解析。配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">  resolve: &#123;</div><div class="line">    alias: &#123;</div><div class="line">      &apos;moment&apos;: &apos;moment/min/moment.min.js&apos;,</div><div class="line">      &apos;react&apos;: &apos;react/dist/react.js&apos;,</div><div class="line">      &apos;react-dom&apos;: &apos;react-dom/dist/react-dom.js&apos;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="使用-noParse"><a href="#使用-noParse" class="headerlink" title="使用 noParse"></a>使用 noParse</h2><p>module.noParse 配置哪些文件可以脱离webpack的解析。</p>
+<p>有些库是自成一体不依赖其他库的没有使用模块化的，比如jquey、momentjs、chart.js，要使用它们必须整体全部引入。</p>
+<p>webpack是模块化打包工具完全没有必要去解析这些文件的依赖，因为它们都不依赖其它文件体积也很庞大，要忽略它们配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">  module: &#123;</div><div class="line">    noParse: /node_modules\/(jquey|moment|chart\.js)/</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>除此以外还有很多可以加速的方法：</p>
+<p>使用happypack多进程并行构建<br>使用DllPlugin复用模块</p>
+<h1 id="更方便的功能"><a href="#更方便的功能" class="headerlink" title="更方便的功能"></a>更方便的功能</h1><h2 id="模块热替换"><a href="#模块热替换" class="headerlink" title="模块热替换"></a>模块热替换</h2><p>模块热替换是指在开发的过程中修改代码后不用刷新页面直接把变化的模块替换到老模块让页面呈现出最新的效果。<br>webpack-dev-server内置模块热替换，配置起来也很方便，下面以react应用为例，步骤如下：</p>
+<p>在启动webpack-dev-server的时候带上–hot参数开启模块热替换，在开启–hot后针对css的变化是会自动热替换的，但是js涉及到复杂的逻辑还需要进一步配置。<br>配置页面入口文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import App from &apos;./app&apos;;</div><div class="line"></div><div class="line">function run()&#123;</div><div class="line">render(&lt;App/&gt;,document.getElementById(&apos;app&apos;));</div><div class="line">&#125;</div><div class="line">run();</div><div class="line"></div><div class="line">// 只在开发模式下配置模块热替换</div><div class="line">if (process.env.NODE_ENV !== &apos;production&apos;) &#123;</div><div class="line">  module.hot.accept(&apos;./app&apos;, run);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当./app发生变化或者当./app依赖的文件发生变化时会把./app编译成一个模块去替换老的，替换完毕后重新执行run函数渲染出最新的效果。</p>
+<h2 id="自动生成html"><a href="#自动生成html" class="headerlink" title="自动生成html"></a>自动生成html</h2><p>webpack只做了资源打包的工作还缺少把这些加载到html里运行的功能，在庞大的app里手写html去加载这些资源是很繁琐易错的，我们需要自动正确的加载打包出的资源。</p>
+<p>webpack原生不支持这个功能于是我做了一个插件 web-webpack-plugin<br>具体使用点开链接看详细文档，使用大概如下：</p>
+<p>demo（<a href="https://github.com/gwuhaolin/web-webpack-plugin/tree/master/demo/out-html）" target="_blank" rel="external">https://github.com/gwuhaolin/web-webpack-plugin/tree/master/demo/out-html）</a></p>
+<p>webpack配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">    entry: &#123;</div><div class="line">        A: &apos;./a&apos;,</div><div class="line">        B: &apos;./b&apos;,</div><div class="line">    &#125;,</div><div class="line">    plugins: [</div><div class="line">        new WebPlugin(&#123;</div><div class="line">            // 输出的html文件名称，必填，注意不要重名，重名会覆盖相互文件。</div><div class="line">            filename: &apos;index.html&apos;,</div><div class="line">            // 该html文件依赖的entry，必须是一个数组。依赖的资源的注入顺序按照数组的顺序。</div><div class="line">            requires: [&apos;A&apos;, &apos;B&apos;],</div><div class="line">        &#125;),</div><div class="line">    ]</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>将会输出一个index.html文件，这个文件将会自动引入 entry A 和 B 生成的js文件，</p>
+<p>输出的html:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;script src=&quot;A.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;B.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>输出的目录结构</p>
+<blockquote>
+<p>├── A.js<br>├── B.js<br>└── index.html</p>
+</blockquote>
+<p>管理多页面</p>
+<p>虽然webpack适用于单页应用，但复杂的系统经常是由多个单页应用组成，每个页面一个功能模块。webpack给出了js打包方案但缺少管理多个页面的功能。 web-webpack-plugin的AutoWebPlugin会自动的为你的系统里每个单页应用生成一个html入口页，这个入口会自动的注入当前单页应用依赖的资源，使用它你只需如下几行代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">plugins: [</div><div class="line">    // ./src/pages/ 代表存放所有页面的根目录，这个目录下的每一个目录被看着是一个单页应用</div><div class="line">    // 会为里面的每一个目录生成一个html入口</div><div class="line">    new AutoWebPlugin(&apos;./src/pages/&apos;, &#123;</div><div class="line">      //使用单页应用的html模版文件，这里你可以自定义配置</div><div class="line">      template: &apos;./src/assets/template.html&apos;,</div><div class="line">    &#125;),</div><div class="line">  ],</div></pre></td></tr></table></figure>
+<p>查看web-webpack-plugin的文档了解更多</p>
+<h2 id="分析输出结果"><a href="#分析输出结果" class="headerlink" title="分析输出结果"></a>分析输出结果</h2><p>如果你对当前的配置输出或者构建速度不满意，webpack有一个工具叫做webpack analyze 以可视化的方式直观的分析构建，来进一步优化构建结果和速度。要使用它你需要在执行webpack的时候带上–json –profile2个参数，这代表让webpack把构建结果以json输出并带上构建性能信息，使用如下：</p>
+<blockquote>
+<p>webpack –json –profile &gt; stats.json</p>
+</blockquote>
+<p>会生产一个stats.json文件，再打开webpack analyze 上传这个文件开始分析。</p>
+<p>最后附上这篇文章所讲到的webpack整体的配置，分为开发环境的webpack.config.js和生产环境的webpack-dist.config.js</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢支持，一起努力<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/zfb.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wx.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -180,95 +300,145 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/07/20/webpack2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+
+      
+        <div id="comment" style="margin-top:50px;"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  const myTheme = {
+    render(state, instance) {
+      const container = document.createElement('div');
+      container.lang = "zh-CN";
+      container.className = 'gitment-container gitment-root-container';
+      container.appendChild(instance.renderHeader(state, instance));
+      container.appendChild(instance.renderEditor(state, instance));
+      container.appendChild(instance.renderComments(state, instance));
+      container.appendChild(instance.renderFooter(state, instance));
+      return container;
+    },
+    renderFooter() {
+      var container = document.createElement('div');
+      container.lang = "en-US";
+      container.className = 'gitment-container gitment-footer-container';
+      container.innerHTML = '\n    Powered by\n    <a class="gitment-footer-project-link" href="https://github.com/imsun/gitment" target="_blank">\n      Gitment\n    </a>\n  ';
+      return container;
+    }
+  };
+
+  var gitment = new Gitment({
+    owner: 'menggege', // 可以是你的GitHub用户名，也可以是github id
+    repo: 'menggege.github.io',
+    oauth: {
+      client_id: 'fe75ac771594abc44791',
+      client_secret: '79b530f35ee56666de47fdccd41e7ea6777aae14',
+    },
+    theme: myTheme
+  })
+  gitment.render('comment')
+</script>
+
+      
+
+      <div class="clearfix"></div>
+
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/15/nodeJS/" class="archive-article-date">
-  	<time datetime="2017-07-15T08:50:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-15</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/07/15/nodeJS/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅谈 Node.js 单线程模型</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/15/nodeJS/">浅谈 Node.js 单线程模型</a>
-    </h1>
+        
+        
+    </div>
+</aside>
+
+
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">node</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/15/console/" class="archive-article-date">
-  	<time datetime="2017-07-15T02:55:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/15/console/">Chrome 控制台实用指南</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">console</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -292,8 +462,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
